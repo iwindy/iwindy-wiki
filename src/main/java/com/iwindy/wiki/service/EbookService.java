@@ -5,6 +5,7 @@ import com.iwindy.wiki.domain.EbookExample;
 import com.iwindy.wiki.mapper.EbookMapper;
 import com.iwindy.wiki.req.EbookReq;
 import com.iwindy.wiki.resp.EbookResp;
+import com.iwindy.wiki.util.CopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,14 @@ public class EbookService {
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
         List<EbookResp> respList = new ArrayList<>();
-        for (Ebook ebook : ebookList) {
-            EbookResp ebookResp = new EbookResp();
-            BeanUtils.copyProperties(ebook,ebookResp);
+        /*for (Ebook ebook : ebookList) {
+           // EbookResp ebookResp = new EbookResp();
+           // BeanUtils.copyProperties(ebook,ebookResp);
+
+            EbookResp ebookResp = CopyUtil.copy(ebook, EbookResp.class);
             respList.add(ebookResp);
-        }
-        return respList;
+        }*/
+        List<EbookResp> list = CopyUtil.copyList(ebookList, EbookResp.class);
+        return list;
     }
 }
