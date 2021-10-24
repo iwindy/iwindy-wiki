@@ -1,7 +1,9 @@
 package com.iwindy.wiki.controller;
 
 import com.iwindy.wiki.domain.Ebook;
+import com.iwindy.wiki.req.EbookReq;
 import com.iwindy.wiki.resp.CommonResp;
+import com.iwindy.wiki.resp.EbookResp;
 import com.iwindy.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +20,9 @@ public class EbookController {
     private EbookService ebookService;
 
     @GetMapping("/list")
-    public CommonResp<List<Ebook>> list(){
-        CommonResp<List<Ebook>> resp = new CommonResp<>();
-        List<Ebook> list = ebookService.list();
+    public CommonResp<List<EbookResp>> list(EbookReq ebookReq){
+        CommonResp<List<EbookResp>> resp = new CommonResp<>();
+        List<EbookResp>  list = ebookService.list(ebookReq);
         resp.setContent(list);
         return resp;
     }
